@@ -26,14 +26,14 @@ for (const file of commandFiles) {
     }
 }
 
-const rest = new REST({ version: '10' }).setToken(config.CLIENT_TOKEN);
+const rest = new REST({ version: '10' }).setToken(process.env.CLIENT_TOKEN); // Cambia config.CLIENT_TOKEN por process.env.CLIENT_TOKEN
 
 (async () => {
     try {
         console.log('Started refreshing application (/) commands.');
 
         await rest.put(
-            Routes.applicationGuildCommands(config.clientId, config.guildId),
+            Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID), // Cambia config.clientId y config.guildId por process.env.CLIENT_ID y process.env.GUILD_ID
             { body: client.commands.map(cmd => cmd.data.toJSON()) }
         );
 
