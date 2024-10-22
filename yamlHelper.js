@@ -2,11 +2,17 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const path = require('path');
 
-// Definiere die Pfade zu den verschiedenen YAML-Dateien
-const warnsFilePath = path.resolve(__dirname, 'warns.yml');
-const mutesFilePath = path.resolve(__dirname, 'mutes.yml');
-const kicksFilePath = path.resolve(__dirname, 'kicks.yml');
-const bansFilePath = path.resolve(__dirname, 'bans.yml');
+// Paths zu den YAML-Dateien
+const yamlDir = path.resolve(__dirname, 'data');
+const warnsFilePath = path.join(yamlDir, 'warns.yml');
+const mutesFilePath = path.join(yamlDir, 'mutes.yml');
+const kicksFilePath = path.join(yamlDir, 'kicks.yml');
+const bansFilePath = path.join(yamlDir, 'bans.yml');
+const ticketsFilePath = path.join(yamlDir, 'Tickets.yml'); // Archivo para guardar configuraciones
+
+if (!fs.existsSync(yamlDir)){
+    fs.mkdirSync(yamlDir);
+}
 
 // Funktion zum Laden von Warnungen
 function loadWarns() {
@@ -92,6 +98,30 @@ function saveKicks(kicks) {
     }
 }
 
+// Funktion zum Laden von Konfigurationen
+function loadConfig() {
+    try {
+        if (!fs.existsSync(ticketsFilePath)) {
+            saveConfig({}); // Crea un archivo vacío si no existe
+        }
+        const config = yaml.load(fs.readFileSync(ticketsFilePath, 'utf8'));
+        return config || {};
+    } catch (e) {
+        console.error('Error loading config:', e);
+        return {};
+    }
+}
+
+// Funktion zum Speichern von Konfigurationen
+function saveConfig(config) {
+    try {
+        const yamlStr = yaml.dump(config);
+        fs.writeFileSync(ticketsFilePath, yamlStr, 'utf8');
+    } catch (e) {
+        console.error('Error saving config:', e);
+    }
+}
+
 module.exports = {
     loadWarns,
     saveWarns,
@@ -100,5 +130,7 @@ module.exports = {
     loadBans,
     saveBans,
     loadKicks,
-    saveKicks
+    saveKicks,
+    loadConfig,
+    saveConfig  // Exportar las nuevas funciones
 };
