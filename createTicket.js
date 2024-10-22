@@ -1,10 +1,14 @@
 const { PermissionsBitField, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Events } = require('discord.js');
 const { formatDistanceToNow } = require('date-fns'); // Import der date-fns Bibliothek
 const { es } = require('date-fns/locale'); // Import der Spanisch-Lokalisierung
+const { loadConfig, saveConfig } = require('./yamlHelper'); // Import loadConfig und saveConfig
 
 async function createTicket(interaction, descripcionProblema) {
     const selectedValue = interaction.customId;
     const channelName = `${selectedValue}-${interaction.user.username}`;
+
+    const config = loadConfig(); // Load configuration
+    if (!config.tickets) config.tickets = [];
 
     const nombreRolModerador = 'Moderador';
     const rolModerador = interaction.guild.roles.cache.find(r => r.name === nombreRolModerador);
@@ -49,6 +53,14 @@ async function createTicket(interaction, descripcionProblema) {
         ],
     });
 
+    config.tickets.push({
+        user: interaction.user.id,
+        description: descripcionProblema,
+        channelId: canal.id,
+        createdAt: new Date()
+    });
+    saveConfig(config); // Save configuration
+
     await interaction.reply({ content: `Tu ticket ha sido creado: ${canal}`, ephemeral: true });
 
     const now = new Date();
@@ -85,9 +97,15 @@ async function createTicket(interaction, descripcionProblema) {
     let initialMessage = await canal.send({ embeds: [getEmbedMessage(now)], components: [botonesInicial] });
 
     // Methode zum Aktualisieren des Embeds
-    const updateEmbed = async (channel, initialMessage, now) => {
-        const updatedEmbed = getEmbedMessage(now);
-        await initialMessage.edit({ embeds: [updatedEmbed] });
+    const updateEmbed = async () => {
+        try {
+            const updatedEmbed = getEmbedMessage(new Date());
+            const fetchedChannel = await interaction.client.channels.fetch(canal.id);
+            const fetchedMessage = await fetchedChannel.messages.fetch(initialMessage.id);
+            await fetchedMessage.edit({ embeds: [updatedEmbed] });
+        } catch (error) {
+            console.error("Fehler beim Aktualisieren des Embeds:", error);
+        }
     };
 
     // Initialisieren des Handlers für Interaktionen mit Schaltflächen
@@ -100,13 +118,16 @@ async function createTicket(interaction, descripcionProblema) {
                     return await buttonInteraction.reply({ content: `Solo los Moderadores pueden atender el ticket.`, ephemeral: true });
                 }
 
+                const config = loadConfig(); // Load configuration
+                const ticket = config.tickets.find(t => t.channelId === buttonInteraction.channel.id);
+                ticket.staff = buttonInteraction.user.id;
+                saveConfig(config); // Save configuration
+
                 const embed = new EmbedBuilder()
                     .setColor('#0099ff') // Hochgelb für ein positives Signal
                     .setTitle('✅ Canal Atendido')
                     .setDescription(`¡Hola hola! ${buttonInteraction.user} te atenderá en unos instántes!\n\n` +
                         `Atendiéndolo @${buttonInteraction.user.username} • ${new Date().toLocaleString()}`)
-
-                await buttonInteraction.deferUpdate();
 
                 const botonesActualizados = new ActionRowBuilder()
                     .addComponents(
@@ -125,10 +146,15 @@ async function createTicket(interaction, descripcionProblema) {
                             .setStyle(ButtonStyle.Secondary)
                     );
 
-                await buttonInteraction.message.edit({ embeds: [getEmbedMessage(new Date())], components: [botonesActualizados] });
+                await buttonInteraction.update({ embeds: [getEmbedMessage(new Date())], components: [botonesActualizados] });
                 return await buttonInteraction.channel.send({ embeds: [embed] });
 
             } else if (buttonInteraction.customId === 'desatender_ticket') {
+                const config = loadConfig(); // Load configuration
+                const ticket = config.tickets.find(t => t.channelId === buttonInteraction.channel.id);
+                ticket.staff = null; // Unassign staff
+                saveConfig(config); // Save configuration
+
                 const embed = new EmbedBuilder()
                     .setColor('#0099ff') // Rot für eine kritischere Nachricht
                     .setTitle('❌ Canal Desatendido')
@@ -147,12 +173,18 @@ async function createTicket(interaction, descripcionProblema) {
                             .setStyle(ButtonStyle.Secondary)
                     );
 
-                await buttonInteraction.deferUpdate();
-                await buttonInteraction.message.edit({ components: [botonesInicial] });
+                await buttonInteraction.update({ components: [botonesInicial] });
                 return await buttonInteraction.channel.send({ embeds: [embed] });
 
             } else if (buttonInteraction.customId === 'cerrar_ticket') {
                 if (buttonInteraction.user.id === interaction.user.id || buttonInteraction.member.roles.cache.has(rolModerador.id)) {
+                    const config = loadConfig(); // Load configuration
+                    const ticketIndex = config.tickets.findIndex(t => t.channelId === buttonInteraction.channel.id);
+                    const ticket = config.tickets[ticketIndex];
+                    ticket.closedAt = new Date();
+                    saveConfig(config); // Save configuration
+
+                    await sendTicketLog(ticket, buttonInteraction.client); // buttonInteraction.client übergeben
                     const channel = buttonInteraction.channel;
                     await buttonInteraction.deferUpdate();
                     return await channel.delete();
@@ -171,9 +203,33 @@ async function createTicket(interaction, descripcionProblema) {
     interaction.client.on(Events.InteractionCreate, buttonHandler);
 
     // Startet ein Intervall zum Aktualisieren des Embeds
-    setInterval(() => {
-        updateEmbed(canal, initialMessage, new Date());
-    }, 60000); // Aktualisiert alle 60 Sekunden
+    setInterval(updateEmbed, 60000); // Aktualisiert alle 60 Sekunden
 }
 
-module.exports = { createTicket };
+// Funktion zum Senden von Ticket-Logs
+async function sendTicketLog(ticket, client) {
+    const config = loadConfig();
+
+    const logChannel = await client.channels.fetch(config.logChannelId);
+    if (!logChannel) return;
+
+    const user = await client.users.fetch(ticket.user);
+    const staff = ticket.staff ? await client.users.fetch(ticket.staff) : null;
+
+    const logEmbed = new EmbedBuilder()
+        .setColor('#00ff00')
+        .setTitle('📜 **Log de Ticket Cerrado**')
+        .setDescription(`Ticket cerrado por: ${staff ? staff.username : 'N/A'}`)
+        .addFields(
+            { name: 'Usuario', value: user ? user.username : 'Usuario nicht gefunden' },
+            { name: 'Descripción', value: ticket.description },
+            { name: 'Creado', value: `<t:${Math.floor(new Date(ticket.createdAt).getTime() / 1000)}:F>`, inline: true },
+            { name: 'Cerrado', value: `<t:${Math.floor(new Date(ticket.closedAt).getTime() / 1000)}:F>`, inline: true },
+            { name: 'Moderador', value: staff ? staff.username : 'sin atender' }
+        )
+        .setTimestamp();
+
+    await logChannel.send({ embeds: [logEmbed] });
+}
+
+module.exports = { createTicket, sendTicketLog };
