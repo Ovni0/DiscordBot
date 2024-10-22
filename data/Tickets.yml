@@ -1,0 +1,120 @@
+logChannelId: '1298326591344214039'
+tickets:
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298349693012807700'
+    createdAt: 2024-10-22T18:18:09.084Z
+    staff: '542744459775967243'
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298349975746511001'
+    createdAt: 2024-10-22T18:19:16.600Z
+    staff: '542744459775967243'
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298350345789112422'
+    createdAt: 2024-10-22T18:20:44.944Z
+    staff: null
+    closedAt: 2024-10-22T18:20:52.615Z
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298350651356479508'
+    createdAt: 2024-10-22T18:21:57.541Z
+    staff: null
+    closedAt: 2024-10-22T18:22:06.323Z
+  - user: '542744459775967243'
+    description: kk
+    channelId: '1298350967074455706'
+    createdAt: 2024-10-22T18:23:12.883Z
+    staff: '542744459775967243'
+    closedAt: 2024-10-22T18:23:27.467Z
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298351443278954597'
+    createdAt: 2024-10-22T18:25:06.578Z
+    staff: '542744459775967243'
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298367469848756307'
+    createdAt: 2024-10-22T19:28:47.378Z
+    staff: '542744459775967243'
+    closedAt: 2024-10-22T19:28:52.165Z
+  - user: '542744459775967243'
+    description: sad
+    channelId: '1298367687986249729'
+    createdAt: 2024-10-22T19:29:39.373Z
+    staff: '542744459775967243'
+    closedAt: 2024-10-22T19:29:44.070Z
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298368003246919794'
+    createdAt: 2024-10-22T19:30:54.509Z
+    closedAt: 2024-10-22T19:31:09.284Z
+    staff: '542744459775967243'
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298368299201073152'
+    createdAt: 2024-10-22T19:32:05.094Z
+    closedAt: 2024-10-22T19:32:09.960Z
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298368587932893326'
+    createdAt: 2024-10-22T19:33:14.120Z
+    closedAt: 2024-10-22T19:33:18.497Z
+  - user: '542744459775967243'
+    description: sad
+    channelId: '1298368923879739405'
+    createdAt: 2024-10-22T19:34:34.436Z
+    closedAt: 2024-10-22T19:34:39.467Z
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298369373970370620'
+    createdAt: 2024-10-22T19:36:21.464Z
+    staff: null
+    closedAt: 2024-10-22T19:36:32.430Z
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298369505331773452'
+    createdAt: 2024-10-22T19:36:52.777Z
+    staff: '542744459775967243'
+    closedAt: 2024-10-22T19:36:58.370Z
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298370881969459324'
+    createdAt: 2024-10-22T19:42:20.824Z
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298374344648691715'
+    createdAt: 2024-10-22T19:56:06.885Z
+    closedAt: 2024-10-22T19:56:10.539Z
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298374741349896215'
+    createdAt: 2024-10-22T19:57:41.367Z
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298375004395933706'
+    createdAt: 2024-10-22T19:58:43.916Z
+    closedAt: 2024-10-22T19:58:50.010Z
+  - user: '542744459775967243'
+    description: sd
+    channelId: '1298375318465150997'
+    createdAt: 2024-10-22T19:59:58.641Z
+    closedAt: 2024-10-22T20:00:03.162Z
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298377302584852520'
+    createdAt: 2024-10-22T20:07:51.651Z
+    staff: '542744459775967243'
+    closedAt: 2024-10-22T20:08:00.716Z
+  - user: '542744459775967243'
+    description: asd
+    channelId: '1298378192121233440'
+    createdAt: 2024-10-22T20:11:23.674Z
+    staff: '542744459775967243'
+    closedAt: 2024-10-22T20:11:33.347Z
+  - user: '542744459775967243'
+    description: as
+    channelId: '1298378981929648170'
+    createdAt: 2024-10-22T20:14:32.146Z
+    closedAt: 2024-10-22T20:14:34.979Z
