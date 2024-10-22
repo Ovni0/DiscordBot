@@ -1,7 +1,7 @@
 const { PermissionsBitField, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Events } = require('discord.js');
 const { formatDistanceToNow } = require('date-fns'); // Import der date-fns Bibliothek
 const { es } = require('date-fns/locale'); // Import der Spanisch-Lokalisierung
-const { loadConfig, saveConfig } = require('./yamlHelper'); // Import loadConfig und saveConfig
+const { loadConfig, saveConfig } = require('./path/to/yamlHelper'); // Ajusta la ruta
 
 async function createTicket(interaction, descripcionProblema) {
     const selectedValue = interaction.customId;
