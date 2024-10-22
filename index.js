@@ -1,6 +1,5 @@
 const { Client, GatewayIntentBits, Collection, REST, Routes, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require('discord.js');
 const fs = require('fs');
-const config = require('./.env');
 const { createTicket } = require('./createTicket');
 const { sendWelcomeMessage } = require('./welcome');
 const { sendFarewellMessage } = require('./farewell');
