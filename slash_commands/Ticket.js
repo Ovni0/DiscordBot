@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, ChannelType } = require('discord.js');
 const { loadConfig, saveConfig } = require('../yamlHelper'); // Asegúrate de que la referencia sea correcta
 
-// Función para obtener los emojis correctamente
+// Función para obtener los emojis
 const getEmoji = (name, id) => {
     return `<:${name}:${id}>`;
 };
