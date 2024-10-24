@@ -26,12 +26,13 @@ module.exports = {
         const logChannel = interaction.options.getChannel('logs');
         const reviewChannel = interaction.options.getChannel('reseñas');
 
+        const config = loadConfig();
+        const botAvatarURL = interaction.client.user.displayAvatarURL({ dynamic: true });
+
+        // Verifica si logChannel y reviewChannel se configuraron
         if (logChannel) {
-            const config = loadConfig();
             config.logChannelId = logChannel.id;
             saveConfig(config);
-
-            const botAvatarURL = interaction.client.user.displayAvatarURL({ dynamic: true });
 
             const logEmbed = new EmbedBuilder()
                 .setColor('#00ff00')
@@ -47,14 +48,11 @@ module.exports = {
                 .setTimestamp();
 
             await logChannel.send({ embeds: [logEmbed] });
-            return await interaction.reply({ content: 'El canal de logs ha sido configurado correctamente.', ephemeral: false });
+        }
 
-        } else if (reviewChannel) {
-            const config = loadConfig();
+        if (reviewChannel) {
             config.reviewChannelId = reviewChannel.id;
             saveConfig(config);
-
-            const botAvatarURL = interaction.client.user.displayAvatarURL({ dynamic: true });
 
             const reviewEmbed = new EmbedBuilder()
                 .setColor('#00ff00')
@@ -70,9 +68,9 @@ module.exports = {
                 .setTimestamp();
 
             await reviewChannel.send({ embeds: [reviewEmbed] });
-            return await interaction.reply({ content: 'El canal de reseñas ha sido configurado correctamente.', ephemeral: false });
+        }
 
-        } else {
+        if (!logChannel && !reviewChannel) {
             const ticketEmbed = new EmbedBuilder()
                 .setColor('#00ff00')
                 .setTitle(getEmoji('Awards', '1298669940659982456') + ' **Panel de Tickets de Army**')
@@ -96,25 +94,26 @@ module.exports = {
                                 label: 'Soporte Técnico',
                                 description: 'Para problemas técnicos.',
                                 value: 'soporte_tecnico',
-                                emoji: { name: 'SoporteTecnico', id: '1298685919058198638' }, // Asegúrate de que esta línea esté configurada correctamente
+                                emoji: { name: 'SoporteTecnico', id: '1298685919058198638' },
                             },
                             {
                                 label: 'Consulta General',
                                 description: 'Para consultas generales.',
                                 value: 'consulta_general',
-                                emoji: { name: 'Consulta', id: '1298685985248247898' }, // Usa la propiedad emoji para agregar un emoji personalizado
+                                emoji: { name: 'Consulta', id: '1298685985248247898' },
                             },
                             {
                                 label: 'Informe de Jugador',
                                 description: 'Para informar sobre el comportamiento de un jugador.',
                                 value: 'informe_jugador',
-                                emoji: { name: 'Informe', id: '1298686506755424346' }, // Añadir el emoji aquí también
+                                emoji: { name: 'Informe', id: '1298686506755424346' },
                             },
                         ]),
                 );
 
-            // Envío del embed y el menú al canal
             return await interaction.reply({ embeds: [ticketEmbed], components: [row], ephemeral: false });
+        } else {
+            return await interaction.reply({ content: 'El canal de logs y/o reseñas ha sido configurado correctamente.', ephemeral: false });
         }
     }
 };
