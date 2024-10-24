@@ -189,7 +189,7 @@ async function createTicket(interaction, descripcionProblema, selectedValue) {
                 await buttonInteraction.channel.send({
                     embeds: [new EmbedBuilder().setColor('#0099ff').setTitle('✅ Canal Atendido')
                         .setDescription(`¡Hola hola! <@${buttonInteraction.user.id}> te atenderá en unos instántes!\n\n` +
-                            `Atendiéndolo <@${buttonInteraction.user.id}> • ${new Date().toLocaleString()}`)
+                            `Sistema de moderación de Army Bot® • ${new Date().toLocaleString()}`)
                     ]
                 });
             } else if (buttonInteraction.customId === 'desatender_ticket') {
@@ -227,7 +227,7 @@ async function createTicket(interaction, descripcionProblema, selectedValue) {
                 await buttonInteraction.channel.send({
                     embeds: [new EmbedBuilder().setColor('#ff0000').setTitle('❌ Canal Desatendido')
                         .setDescription(`<@${buttonInteraction.user.id}> ya no está atendiendo este canal.\n\n` +
-                            `Desatendiéndolo <@${buttonInteraction.user.id}> • ${new Date().toLocaleString()}`)
+                            `Sistema de moderación de Army Bot® • ${new Date().toLocaleString()}`)
                     ]
                 });
             } else if (buttonInteraction.customId === 'cerrar_ticket') {
