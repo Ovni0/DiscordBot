@@ -26,10 +26,11 @@ module.exports = {
         const logChannel = interaction.options.getChannel('logs');
         const reviewChannel = interaction.options.getChannel('reseñas');
 
+        // Carga de configuración
         const config = loadConfig();
         const botAvatarURL = interaction.client.user.displayAvatarURL({ dynamic: true });
 
-        // Verifica si logChannel y reviewChannel se configuraron
+        // Verificación de canales y envío de Embeds
         if (logChannel) {
             config.logChannelId = logChannel.id;
             saveConfig(config);
