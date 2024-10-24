@@ -23,11 +23,11 @@ async function requestTicketReview(ticket, client) {
                     .setCustomId('star_rating')
                     .setPlaceholder('Selecciona la calificación')
                     .addOptions([
-                        { label: '1 Estrella', description: 'Calificación de 1 Estrella', value: '1_star' },
-                        { label: '2 Estrellas', description: 'Calificación de 2 Estrellas', value: '2_star' },
-                        { label: '3 Estrellas', description: 'Calificación de 3 Estrellas', value: '3_star' },
-                        { label: '4 Estrellas', description: 'Calificación de 4 Estrellas', value: '4_star' },
-                        { label: '5 Estrellas', description: 'Calificación de 5 Estrellas', value: '5_star' },
+                        { label: '<:BlueStar:1299121440477548666>', description: 'Calificación de 1 Estrella', value: '1_star' },
+                        { label: '<:BlueStar:1299121440477548666>', description: 'Calificación de 2 Estrellas', value: '2_star' },
+                        { label: '<:BlueStar:1299121440477548666>', description: 'Calificación de 3 Estrellas', value: '3_star' },
+                        { label: '<:BlueStar:1299121440477548666>', description: 'Calificación de 4 Estrellas', value: '4_star' },
+                        { label: '<:BlueStar:1299121440477548666>', description: 'Calificación de 5 Estrellas', value: '5_star' },
                     ])
             );
 
@@ -77,11 +77,11 @@ async function requestTicketReview(ticket, client) {
                             .setColor('#00ff00')
                             .setTitle(`📄 Nueva Reseña (#${ticket.id})`)
                             .setDescription(
-                                `<:Awards:1298669940659982456> **Información del Soporte**\n` +
+                                `<:Awards:1299121444076126268> **Información del Soporte**\n` +
                                 `**Creador:** <@${user.id}> (${user.username})\n` +
                                 `**Mensajes totales:** ${ticket.totalMessages || 'N/A'}\n\n` +
-                                `<:Star:1298669017942196297> **Reseña del Soporte**\n` +
-                                `<:BlueStar:1298673228188745838> `.repeat(starRating) + `\n` +
+                                `<:Star:1299121447821774928>  **Reseña del Soporte**\n` +
+                                `<:BlueStar:1299121440477548666> `.repeat(starRating) + `\n` +
                                 `***Comentario de la Reseña:***\n` +
                                 `> ${reviewComment}\n\n`
                                 // `🔗 [Ver Ticket Completo](tu_enlace_aquí)` // Añade un enlace a más detalles
