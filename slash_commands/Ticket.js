@@ -74,7 +74,7 @@ module.exports = {
         if (!logChannel && !reviewChannel) {
             const ticketEmbed = new EmbedBuilder()
                 .setColor('#00ff00')
-                .setTitle(getEmoji('Awards', '1298669940659982456') + ' **Panel de Tickets de Army**')
+                .setTitle(getEmoji('Awards', '1299121444076126268') + ' **Panel de Tickets de Army**')
                 .setDescription(
                     `**Bienvenido al Sistema de Tickets**\n\n` +
                     `Para abrir un ticket, selecciona el tipo de ticket que necesitas abrir en el menú desplegable a continuación:\n\n` +
