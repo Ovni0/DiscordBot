@@ -228,8 +228,8 @@ client.on('messageCreate', async message => {
             try {
                 const suggestionMessage = await message.channel.send({ embeds: [suggestionEmbed] });
 
-                await suggestionMessage.react('<:checkmark:1298694529821704354>'); // Voto positivo
-                await suggestionMessage.react('<:borrar:1298694507654676561>'); // Voto negativo
+                await suggestionMessage.react('<:checkmark:1299121453433622608>'); // Voto positivo
+                await suggestionMessage.react('<:borrar:1299121450338357269>'); // Voto negativo
 
                 await message.delete();
 
