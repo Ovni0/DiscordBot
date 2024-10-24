@@ -1,12 +1,16 @@
-const { Client, GatewayIntentBits, Collection, REST, Routes, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, REST, Routes, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, EmbedBuilder } = require('discord.js');
 const fs = require('fs');
 require('dotenv').config(); // Carga las variables de entorno desde .env
 const { createTicket } = require('./createTicket');
 const { sendWelcomeMessage } = require('./welcome');
 const { sendFarewellMessage } = require('./farewell');
+const { loadConfig, loadSuggestionsConfig } = require('./yamlHelper'); // Importieren der Funktionen aus yamlHelper
 
 const cooldowns = new Map(); // Mapa para manejar los cooldowns
 const COOLDOWN_SECONDS = 600; // 10 minutos de cooldown
+
+// Configuración variable para das `config`
+const config = loadConfig();
 
 // Client-Definition und Initialisierung MUSS vor der Verwendung erfolgen
 const client = new Client({
@@ -30,7 +34,7 @@ for (const file of commandFiles) {
     }
 }
 
-const rest = new REST({ version: '10' }).setToken(config.CLIENT_TOKEN);
+const rest = new REST({ version: '10' }).setToken(process.env.CLIENT_TOKEN);
 
 (async () => {
     try {
@@ -261,4 +265,5 @@ client.login(process.env.CLIENT_TOKEN);
 
 async function waitForTicketClosure(ticket) {
     // Implementierung der Logik zum Warten auf das Ticket-Schließen
-}// Cambia config.CLIENT_TOKEN por process.env.CLIENT_TOKEN
+    console.log("waiting for ticket closure", ticket);
+}
