@@ -23,11 +23,11 @@ async function requestTicketReview(ticket, client) {
                     .setCustomId('star_rating')
                     .setPlaceholder('Selecciona la calificación')
                     .addOptions([
-                        { label: '<:BlueStar:1299121440477548666>', description: 'Calificación de 1 Estrella', value: '1_star' },
-                        { label: '<:BlueStar:1299121440477548666>', description: 'Calificación de 2 Estrellas', value: '2_star' },
-                        { label: '<:BlueStar:1299121440477548666>', description: 'Calificación de 3 Estrellas', value: '3_star' },
-                        { label: '<:BlueStar:1299121440477548666>', description: 'Calificación de 4 Estrellas', value: '4_star' },
-                        { label: '<:BlueStar:1299121440477548666>', description: 'Calificación de 5 Estrellas', value: '5_star' },
+                        { label: ':star: ', description: 'Calificación de 1 Estrella', value: '1_star' },
+                        { label: ':star: ', description: 'Calificación de 2 Estrellas', value: '2_star' },
+                        { label: ':star: ', description: 'Calificación de 3 Estrellas', value: '3_star' },
+                        { label: ':star: ', description: 'Calificación de 4 Estrellas', value: '4_star' },
+                        { label: ':star: ', description: 'Calificación de 5 Estrellas', value: '5_star' },
                     ])
             );
 
