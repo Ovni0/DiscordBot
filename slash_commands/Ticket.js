@@ -95,13 +95,13 @@ module.exports = {
                                 label: 'Soporte Técnico',
                                 description: 'Para problemas técnicos.',
                                 value: 'soporte_tecnico',
-                                emoji: { name: 'SoporteTecnico', id: '1298685919058198638' },
+                                emoji: { name: 'SoporteTecnico', id: '1299121456566767687' },
                             },
                             {
                                 label: 'Consulta General',
                                 description: 'Para consultas generales.',
                                 value: 'consulta_general',
-                                emoji: { name: 'Consulta', id: '1298685985248247898' },
+                                emoji: { name: 'Consulta', id: '1299121461071708292' },
                             },
                             {
                                 label: 'Informe de Jugador',
