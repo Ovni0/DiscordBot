@@ -48,6 +48,9 @@ module.exports = {
                 ejecutor
             });
 
+            // Obtener el avatar del bot
+            const botAvatarURL = interaction.client.user.displayAvatarURL();
+
             try {
                 // Crear un embed para enviar un mensaje directo al usuario antes de ser expulsado
                 const userEmbed = new EmbedBuilder()
@@ -69,9 +72,6 @@ module.exports = {
 
                 // Guardar los kicks en el archivo YAML
                 saveKicks(kicks);
-
-                // Obtener el avatar del bot
-                const botAvatarURL = interaction.client.user.displayAvatarURL();
 
                 // Responder al ejecutor del comando con un embed no efímero para que todos lo puedan ver
                 const responseEmbed = new EmbedBuilder()
