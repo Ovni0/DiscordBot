@@ -8,7 +8,8 @@ const warnsFilePath = path.join(yamlDir, 'warns.yml');
 const mutesFilePath = path.join(yamlDir, 'mutes.yml');
 const kicksFilePath = path.join(yamlDir, 'kicks.yml');
 const bansFilePath = path.join(yamlDir, 'bans.yml');
-const ticketsFilePath = path.join(yamlDir, 'Tickets.yml'); // Archivo para guardar configuraciones
+const ticketsFilePath = path.join(yamlDir, 'tickets.yml');
+const suggestionsFilePath = path.join(yamlDir, 'suggestions.yml'); // Archivo para guardar sugerencias
 
 if (!fs.existsSync(yamlDir)){
     fs.mkdirSync(yamlDir);
@@ -122,6 +123,32 @@ function saveConfig(config) {
     }
 }
 
+// Funktion zum Laden von Suggerencias
+function loadSuggestionsConfig() {
+    try {
+        if (!fs.existsSync(suggestionsFilePath)) {
+            saveSuggestionsConfig({}); // Crea un archivo vacío si no existe
+        }
+        const config = yaml.load(fs.readFileSync(suggestionsFilePath, 'utf8'));
+        console.log('Suggestions config geladen:', config); // Debugging Ausgabe
+        return config || {};
+    } catch (e) {
+        console.error('Error loading suggestions config:', e);
+        return {};
+    }
+}
+
+// Funktion zum Speichern von Suggerencias
+function saveSuggestionsConfig(config) {
+    try {
+        const yamlStr = yaml.dump(config);
+        fs.writeFileSync(suggestionsFilePath, yamlStr, 'utf8');
+        console.log('Suggestions config guardada:', config); // Debugging Ausgabe
+    } catch (e) {
+        console.error('Error saving suggestions config:', e);
+    }
+}
+
 module.exports = {
     loadWarns,
     saveWarns,
@@ -132,5 +159,7 @@ module.exports = {
     loadKicks,
     saveKicks,
     loadConfig,
-    saveConfig  // Exportar las nuevas funciones
+    saveConfig,
+    loadSuggestionsConfig,
+    saveSuggestionsConfig
 };
