@@ -142,7 +142,7 @@ async function createTicket(interaction, descripcionProblema, selectedValue) {
                 return;
             }
 
-            const nombreRolModerador = 'Moderador';
+            const nombreRolModerador = '🛠️ | Moderador';
             const rolModerador = buttonInteraction.guild.roles.cache.find(r => r.name === nombreRolModerador);
 
             if (buttonInteraction.customId === 'atender_ticket') {
@@ -196,7 +196,7 @@ async function createTicket(interaction, descripcionProblema, selectedValue) {
                 if (!rolModerador || ticket.staff !== buttonInteraction.user.id) {
                     if (!buttonInteraction.replied && !buttonInteraction.deferred) {
                         return await buttonInteraction.reply({
-                            content: `Solo el Moderador que atiende el ticket puede desatenderlo.`,
+                            content: `Solo el <@&1289406543082684457> que atiende el ticket puede desatenderlo.`,
                             ephemeral: true
                         });
                     }
